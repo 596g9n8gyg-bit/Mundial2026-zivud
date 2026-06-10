@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מונדיאל 2026 - חיזוי משרדי</title>
+<script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+<style>
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Heebo", "Arial Hebrew", Arial, sans-serif; background:#f0f3f8; color:#1a2332; }
+body { padding-bottom: 90px; }
+header { background: linear-gradient(135deg, rgba(10,37,64,0.85) 0%, rgba(30,58,95,0.85) 100%), url("data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><rect width="240" height="240" fill="%230a2540"/><g stroke="%23f1c40f" stroke-width="1.2" fill="none" opacity="0.35"><path d="M 0 30 L 80 30 L 80 80 L 160 80 L 160 30 L 240 30"/><path d="M 0 120 L 60 120 L 60 180 L 140 180 L 140 120 L 240 120"/><path d="M 30 0 L 30 60 L 100 60 L 100 140 L 30 140 L 30 240"/><path d="M 200 0 L 200 100 L 170 100 L 170 200 L 200 200 L 200 240"/><path d="M 40 200 L 110 200 L 110 220 L 200 220"/></g><g fill="%23f1c40f" opacity="0.5"><circle cx="80" cy="30" r="3"/><circle cx="80" cy="80" r="3"/><circle cx="160" cy="80" r="3"/><circle cx="160" cy="30" r="3"/><circle cx="60" cy="120" r="3"/><circle cx="60" cy="180" r="3"/><circle cx="140" cy="180" r="3"/><circle cx="140" cy="120" r="3"/><circle cx="30" cy="60" r="3"/><circle cx="100" cy="60" r="3"/><circle cx="100" cy="140" r="3"/><circle cx="30" cy="140" r="3"/><circle cx="200" cy="100" r="3"/><circle cx="170" cy="100" r="3"/><circle cx="170" cy="200" r="3"/><circle cx="200" cy="200" r="3"/><circle cx="110" cy="200" r="3"/><circle cx="110" cy="220" r="3"/></g><g fill="%23f1c40f" opacity="0.25"><rect x="115" y="115" width="20" height="14" rx="1"/><rect x="55" y="35" width="14" height="8" rx="1"/><rect x="175" y="155" width="14" height="8" rx="1"/></g></svg>"); background-size: cover, 240px 240px; background-repeat: no-repeat, repeat; color:#fff; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,.15); position:sticky; top:0; z-index:50; }
+header h1 { margin:0; font-size:20px; display:flex; align-items:center; gap:8px;}
+header .sub { font-size:12px; opacity:.85; margin-top:2px; }
+.gold { color:#f1c40f; }
+img.emoji { height: 1em; width: 1em; margin: 0 .05em 0 .1em; vertical-align: -0.1em; display: inline-block; }
+.tabs { display:flex; background:#fff; border-bottom:1px solid #d8dee9; position:sticky; top:60px; z-index:40; }
+.tab { flex:1; padding:12px; text-align:center; font-weight:600; font-size:14px; cursor:pointer; color:#5a6678; border-bottom:3px solid transparent; transition:.2s; }
+.tab.active { color:#0a2540; border-bottom-color:#f1c40f; background:#fafbfd; }
+.container { padding:14px; max-width:760px; margin:0 auto; }
+.card { background:#fff; border-radius:12px; padding:14px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+.user-input { width:100%; padding:12px; border:2px solid #d8dee9; border-radius:10px; font-size:16px; font-family:inherit; }
+.user-input:focus { outline:none; border-color:#0a2540; }
+.label { font-size:13px; color:#5a6678; margin-bottom:6px; font-weight:600; }
+.stage { margin-bottom:14px; }
+.stage-header { background:#0a2540; color:#fff; padding:12px 14px; border-radius:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700; }
+.stage-header .pts { background:#f1c40f; color:#0a2540; padding:3px 10px; border-radius:20px; font-size:12px; }
+.stage-body { padding:10px 0; display:none; }
+.stage.open .stage-body { display:block; }
+.stage-header .arrow { transition:.3s; }
+.stage.open .stage-header .arrow { transform: rotate(180deg); }
+.match { background:#f7f9fc; border-radius:10px; padding:10px; margin-bottom:8px; border-right:4px solid #f1c40f; }
+.match-title { font-size:12px; color:#5a6678; margin-bottom:6px; font-weight:600; }
+.match-row { display:flex; gap:6px; align-items:center; }
+.match-row select { flex:1; padding:10px; border:1px solid #cbd2dc; border-radius:8px; background:#fff; font-size:14px; font-family:inherit; }
+.match-row select:disabled { background:#f0f3f8; color:#94a3b8; cursor:not-allowed; }
+.match-row .vs { color:#5a6678; font-size:11px; font-weight:700; padding:0 4px; }
+.champion-box { background: linear-gradient(135deg,#fef9c3 0%,#fde047 100%); border:3px solid #f59e0b; padding:14px; border-radius:12px; text-align:center; }
+.champion-box .crown { font-size:32px; }
+.champion-box select { width:100%; padding:12px; border:2px solid #f59e0b; border-radius:10px; background:#fff; font-size:16px; font-weight:700; margin-top:8px; font-family:inherit; text-align:center; }
+.groups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; margin-top:10px; }
+.group-card { background:#f7f9fc; padding:8px; border-radius:8px; border-right:3px solid #f1c40f; }
+.group-card h4 { margin:0 0 4px; font-size:13px; color:#0a2540; }
+.group-card div { font-size:12px; color:#3d4856; line-height:1.6;}
+.btn { background:#0a2540; color:#fff; border:none; padding:12px 18px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.btn:hover { background:#1e3a5f; }
+.btn-gold { background:#f1c40f; color:#0a2540; }
+.btn-gold:hover { background:#e1b40f; }
+.btn-danger { background:#e74c3c; }
+.btn-secondary { background:#7f8c8d; }
+.btn-whatsapp { background:#25D366; color:#fff; }
+.btn-whatsapp:hover { background:#1ebd5a; }
+.btn-block { display:block; width:100%; margin:6px 0; }
+.actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.actions-3 { display:grid; grid-template-columns:1fr; gap:8px; }
+@media(min-width:520px){ .actions-3 { grid-template-columns:1fr 1fr 1fr; } }
+.share-note { font-size:11px; color:#5a6678; text-align:center; margin-top:4px; }
+.bottom-bar { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:10px 14px; box-shadow:0 -2px 8px rgba(0,0,0,.1); display:flex; align-items:center; gap:10px; z-index:60; }
+.progress-text { font-size:12px; color:#5a6678; flex:1; }
+.progress-bar { height:4px; background:#e1e6ed; border-radius:4px; overflow:hidden; margin-top:4px; }
+.progress-fill { height:100%; background:#f1c40f; transition:.3s; }
+.alert { padding:10px; border-radius:8px; margin-bottom:10px; font-size:13px; }
+.alert-info { background:#e3f2fd; color:#0d47a1; border:1px solid #90caf9; }
+.alert-warn { background:#fff3e0; color:#e65100; border:1px solid #ffb74d; }
+.alert-locked { background:#f0f3f8; color:#5a6678; border:1px dashed #cbd2dc; text-align:center; padding:14px; font-size:13px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+th, td { padding:8px; text-align:right; border-bottom:1px solid #e1e6ed; }
+th { background:#0a2540; color:#fff; font-weight:700; cursor:pointer; }
+th:first-child { border-top-right-radius:8px; }
+th:last-child { border-top-left-radius:8px; }
+tr.leader { background:#fffbeb; font-weight:700; }
+tr.leader td:first-child::before { content:"👑 "; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.scoring-rules { font-size:12px; color:#5a6678; line-height:1.7; }
+.scoring-rules b { color:#0a2540; }
+.import-area { border:2px dashed #cbd2dc; padding:14px; border-radius:10px; text-align:center; margin-top:8px; }
+input[type="file"] { display:none; }
+.file-label { display:inline-block; background:#f1c40f; color:#0a2540; padding:10px 16px; border-radius:8px; font-weight:700; cursor:pointer; font-size:13px; }
+@media(max-width:480px){
+  header h1{font-size:17px}
+  .container{padding:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 מונדיאל 2026 <span class="gold">| חיזוי משרדי</span></h1>
+  <div class="sub">קנדה · מקסיקו · ארה"ב | 11.6 – 19.7.2026</div>
+</header>
+<div class="tabs">
+  <div class="tab active" data-tab="predict">📝 החיזוי שלי</div>
+  <div class="tab" data-tab="board">📊 טבלת תוצאות</div>
+  <div class="tab" data-tab="info">ℹ️ מידע</div>
+</div>
+
+<div class="container">
+
+<div class="tab-content active" id="tab-predict">
+  <div class="card">
+    <div class="label">שם המשתתף/ת</div>
+    <input type="text" class="user-input" id="userName" placeholder="הכנס/י את שמך…">
+  </div>
+  <div class="card">
+    <div class="label" style="margin-bottom:8px">📋 12 הביתים של המונדיאל</div>
+    <div class="groups-grid" id="groupsGrid"></div>
+  </div>
+  <div id="stagesContainer"></div>
+  <div class="card">
+    <div class="actions-3">
+      <button class="btn btn-whatsapp btn-block" onclick="shareWhatsApp('predictions')">📲 שיתוף ב-WhatsApp</button>
+      <button class="btn btn-gold btn-block" onclick="exportPredictions()">⬇️ ייצוא חיזויים</button>
+      <button class="btn btn-danger btn-block" onclick="resetPredictions()">🗑️ איפוס חיזויים</button>
+    </div>
+    <div class="share-note">במובייל ייפתח חלון שיתוף עם וואטסאפ ↗</div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-board">
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">📥 ייבוא חיזויים מהמשתתפים</h3>
+    <div class="import-area">
+      <label for="importFiles" class="file-label">בחר/י קבצי JSON של חיזויים</label>
+      <input type="file" id="importFiles" multiple accept=".json">
+      <div style="font-size:12px;color:#5a6678;margin-top:8px">ניתן לבחור כמה קבצים בו-זמנית</div>
+    </div>
+    <div id="importedList" style="margin-top:10px;font-size:13px"></div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">🎯 תוצאות אמיתיות (אדמין)</h3>
+    <div class="alert alert-info">עדכן/י את התוצאות בפועל אחרי כל שלב במונדיאל. הניקוד יחושב אוטומטית.</div>
+    <button class="btn btn-block" onclick="openResultsEditor()">✏️ עריכת תוצאות בפועל</button>
+    <div class="actions" style="margin-top:8px">
+      <button class="btn btn-gold btn-block" onclick="exportResults()">⬇️ ייצוא תוצאות</button>
+      <label for="importResultsFile" class="file-label" style="text-align:center">⬆️ ייבוא תוצאות</label>
+      <input type="file" id="importResultsFile" accept=".json">
+    </div>
+    <button class="btn btn-whatsapp btn-block" style="margin-top:8px" onclick="shareWhatsApp('results')">📲 שיתוף תוצאות ב-WhatsApp</button>
+    <div class="share-note">שיתוף ה-JSON של התוצאות הרשמיות לכל הקבוצה</div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">🏆 טבלת ניקוד</h3>
+    <div id="leaderboard"></div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-info">
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">📖 שיטת הניקוד</h3>
+    <div class="scoring-rules">
+      הניקוד מבוסס על ניחוש נכון של כל נבחרת בהתאם לענף שבו היא נמצאת בשלב הנוקאאוט.<br>
+      • ניחשת את הנבחרת בענף הנכון? <b>ניקוד מלא</b> ✅<br>
+      • הנבחרת עלתה שלב אבל לא מהמיקום שניחשת? <b>חצי ניקוד</b> ⚠️<br><br>
+      <b>שלב 32 הגדולות:</b> 2 נק' (מיקום נכון) / 1 נק' (לא נכון)<br>
+      <b>שמינית גמר:</b> 4 / 2 נק'<br>
+      <b>רבע גמר:</b> 8 / 4 נק'<br>
+      <b>חצי גמר:</b> 16 / 8 נק'<br>
+      <b>גמר:</b> 32 / 16 נק'<br>
+      <b>זכייה:</b> 64 נק' 🏆
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">🔗 סינון חכם בין השלבים</h3>
+    <div class="scoring-rules">
+      <b>W = Winner</b> = זוכת המשחק. למשל <b>W74</b> = הזוכה במשחק 74.<br><br>
+      בכל שלב נוקאאוט האפליקציה מסננת אוטומטית את הנבחרות לפי הזיווגים הרשמיים של פיפ"א.<br><br>
+      <b>שמינית הגמר (לפי פיפ"א):</b><br>
+      • <b>W89:</b> W74 מול W77<br>
+      • <b>W90:</b> W73 מול W75<br>
+      • <b>W91:</b> W83 מול W84<br>
+      • <b>W92:</b> W81 מול W82<br>
+      • <b>W93:</b> W76 מול W78<br>
+      • <b>W94:</b> W79 מול W80<br>
+      • <b>W95:</b> W86 מול W88<br>
+      • <b>W96:</b> W85 מול W87<br><br>
+      ⚠️ אם תשנה ניחוש בשלב קודם — השלבים הבאים יתעדכנו אוטומטית.
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">📱 איך משתמשים?</h3>
+    <div class="scoring-rules">
+      <b>1.</b> כל משתתף ממלא את החיזוי במכשיר שלו.<br>
+      <b>2.</b> לוחצים <b>"📲 שיתוף ב-WhatsApp"</b> → נפתח שיתוף ישיר לוואטסאפ עם הקובץ.<br>
+      <b>3.</b> שולחים את הקובץ למנהל הליגה.<br>
+      <b>4.</b> המנהל מייבא את כל הקבצים בלשונית "טבלת תוצאות".<br>
+      <b>5.</b> אחרי כל שלב במונדיאל - המנהל מעדכן את התוצאות בפועל והטבלה מתעדכנת אוטומטית.
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px;color:#0a2540">💡 הצעות לבונוסים נוספים</h3>
+    <div class="scoring-rules">
+      • <b>בית מושלם:</b> ניחוש נכון של שתי העולות מבית → +5 נק' בונוס<br>
+      • <b>שובר שוויון:</b> ניחוש מלך השערים של הטורניר<br>
+      • <b>נבחרת סינדרלה:</b> בחירת אאוטסיידר → נקודות כפולות על כל שלב שעוברת<br>
+      • <b>קנס ביטחון:</b> זוכה שלך נפלה ב-R32 → −5 נק'
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="bottom-bar">
+  <div style="flex:1">
+    <div class="progress-text" id="progressText">0 / 63 בחירות</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <button class="btn btn-gold" onclick="saveLocal()">💾 שמירה</button>
+</div>
+
+<script>
+const GROUPS = {
+  A: { name:"בית A", teams:["🇲🇽 מקסיקו","🇿🇦 דרא\"פ","🇰🇷 קוריאה הדרומית","🇨🇿 צ'כיה"] },
+  B: { name:"בית B", teams:["🇨🇦 קנדה","🇨🇭 שווייץ","🇶🇦 קטאר","🇧🇦 בוסניה"] },
+  C: { name:"בית C", teams:["🇧🇷 ברזיל","🇲🇦 מרוקו","🇭🇹 האיטי","🏴 סקוטלנד"] },
+  D: { name:"בית D", teams:["🇺🇸 ארה\"ב","🇵🇾 פרגוואי","🇦🇺 אוסטרליה","🇹🇷 טורקיה"] },
+  E: { name:"בית E", teams:["🇩🇪 גרמניה","🇨🇼 קוראסאו","🇨🇮 חוף השנהב","🇪🇨 אקוודור"] },
+  F: { name:"בית F", teams:["🇳🇱 הולנד","🇯🇵 יפן","🇸🇪 שבדיה","🇹🇳 טוניסיה"] },
+  G: { name:"בית G", teams:["🇧🇪 בלגיה","🇪🇬 מצרים","🇮🇷 איראן","🇳🇿 ניו זילנד"] },
+  H: { name:"בית H", teams:["🇪🇸 ספרד","🇨🇻 כף ורדה","🇸🇦 ערב הסעודית","🇺🇾 אורוגוואי"] },
+  I: { name:"בית I", teams:["🇫🇷 צרפת","🇸🇳 סנגל","🇳🇴 נורבגיה","🇮🇶 עיראק"] },
+  J: { name:"בית J", teams:["🇦🇷 ארגנטינה","🇩🇿 אלג'יריה","🇦🇹 אוסטריה","🇯🇴 ירדן"] },
+  K: { name:"בית K", teams:["🇵🇹 פורטוגל","🇨🇩 קונגו","🇺🇿 אוזבקיסטן","🇨🇴 קולומביה"] },
+  L: { name:"בית L", teams:["🏴󠁧󠁢󠁥󠁮󠁧󠁿 אנגליה","🇭🇷 קרואטיה","🇬🇭 גאנה","🇵🇦 פנמה"] }
+};
+
+const R32_MATCHES = [
+ {id:"M73", a:{type:"2",g:"A"}, b:{type:"2",g:"B"}},
+ {id:"M74", a:{type:"1",g:"E"}, b:{type:"3",pool:["A","B","C","D","F"]}},
+ {id:"M75", a:{type:"1",g:"F"}, b:{type:"2",g:"C"}},
+ {id:"M76", a:{type:"1",g:"C"}, b:{type:"2",g:"F"}},
+ {id:"M77", a:{type:"1",g:"I"}, b:{type:"3",pool:["C","D","F","G","H"]}},
+ {id:"M78", a:{type:"2",g:"E"}, b:{type:"2",g:"I"}},
+ {id:"M79", a:{type:"1",g:"A"}, b:{type:"3",pool:["C","E","F","H","I"]}},
+ {id:"M80", a:{type:"1",g:"L"}, b:{type:"3",pool:["E","H","I","J","K"]}},
+ {id:"M81", a:{type:"1",g:"D"}, b:{type:"3",pool:["B","E","F","I","J"]}},
+ {id:"M82", a:{type:"1",g:"G"}, b:{type:"3",pool:["A","E","H","I","J"]}},
+ {id:"M83", a:{type:"2",g:"K"}, b:{type:"2",g:"L"}},
+ {id:"M84", a:{type:"1",g:"H"}, b:{type:"2",g:"J"}},
+ {id:"M85", a:{type:"1",g:"B"}, b:{type:"3",pool:["E","F","G","I","J"]}},
+ {id:"M86", a:{type:"1",g:"J"}, b:{type:"2",g:"H"}},
+ {id:"M87", a:{type:"1",g:"K"}, b:{type:"3",pool:["D","E","I","J","L"]}},
+ {id:"M88", a:{type:"2",g:"D"}, b:{type:"2",g:"G"}}
+];
+
+const R16_MATCHES = [
+  {id:"M89", aSrcMatch:1,  bSrcMatch:4},
+  {id:"M90", aSrcMatch:0,  bSrcMatch:2},
+  {id:"M91", aSrcMatch:10, bSrcMatch:11},
+  {id:"M92", aSrcMatch:8,  bSrcMatch:9},
+  {id:"M93", aSrcMatch:3,  bSrcMatch:5},
+  {id:"M94", aSrcMatch:6,  bSrcMatch:7},
+  {id:"M95", aSrcMatch:13, bSrcMatch:15},
+  {id:"M96", aSrcMatch:12, bSrcMatch:14}
+];
+
+const QF_MATCHES = [
+  {id:"M97",  aSrcMatch:0, bSrcMatch:1},
+  {id:"M98",  aSrcMatch:4, bSrcMatch:5},
+  {id:"M99",  aSrcMatch:2, bSrcMatch:3},
+  {id:"M100", aSrcMatch:6, bSrcMatch:7}
+];
+
+const SF_MATCHES = [
+  {id:"M101", aSrcMatch:0, bSrcMatch:1},
+  {id:"M102", aSrcMatch:2, bSrcMatch:3}
+];
+
+const F_MATCHES = [
+  {id:"M104", aSrcMatch:0, bSrcMatch:1}
+];
+
+const STAGE_MATCHES = { R16:R16_MATCHES, QF:QF_MATCHES, SF:SF_MATCHES, F:F_MATCHES };
+const ALL_TEAMS = Object.values(GROUPS).flatMap(g=>g.teams);
+
+const STAGES = [
+  {id:"R32", name:"32 הגדולות", slots:32, full:2, half:1, matchStart:73},
+  {id:"R16", name:"שמינית גמר", slots:16, full:4, half:2, matchStart:89,  prevStage:"R32", prevStart:73},
+  {id:"QF",  name:"רבע גמר",   slots:8,  full:8, half:4, matchStart:97,  prevStage:"R16", prevStart:89},
+  {id:"SF",  name:"חצי גמר",   slots:4,  full:16,half:8, matchStart:101, prevStage:"QF",  prevStart:97},
+  {id:"F",   name:"גמר",       slots:2,  full:32,half:16,matchStart:104, prevStage:"SF",  prevStart:101},
+  {id:"W",   name:"זכייה 🏆",  slots:1,  full:64,half:0, prevStage:"F"}
+];
+
+function parseEmojis(){ if(typeof twemoji !== 'undefined'){ try { twemoji.parse(document.body, {folder:'svg', ext:'.svg'}); } catch(e){} } }
+
+let picks = {};
+let actualResults = {};
+let imported = [];
+
+function init(){
+  renderGroups();
+  renderStages();
+  loadLocal();
+  setupTabs();
+  setupImports();
+  updateProgress();
+  parseEmojis();
+}
+
+function setupTabs(){
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.onclick = ()=>{
+      document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(x=>x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById("tab-"+t.dataset.tab).classList.add("active");
+      if(t.dataset.tab==="board") renderLeaderboard();
+      parseEmojis();
+    };
+  });
+}
+
+function renderGroups(){
+  const grid = document.getElementById("groupsGrid");
+  grid.innerHTML = Object.entries(GROUPS).map(([k,g])=>`
+    <div class="group-card">
+      <h4>${g.name}</h4>
+      <div>${g.teams.map(t=>"• "+t).join("<br>")}</div>
+    </div>`).join("");
+}
+
+function getEligibleTeams(slotInfo){
+  if(slotInfo.type==="1" || slotInfo.type==="2"){
+    return GROUPS[slotInfo.g].teams;
+  } else if(slotInfo.type==="3"){
+    return slotInfo.pool.flatMap(g=>GROUPS[g].teams);
+  }
+  return ALL_TEAMS;
+}
+
+function getEligibleForSlot(stageId, slotIdx){
+  if(stageId==="W"){
+    const prev = picks.F || {};
+    return [prev[0], prev[1]].filter(Boolean);
+  }
+  const matches = STAGE_MATCHES[stageId];
+  if(!matches) return ALL_TEAMS;
+  const matchIdx = Math.floor(slotIdx/2);
+  const isSideA = slotIdx % 2 === 0;
+  const srcMatchIdx = isSideA ? matches[matchIdx].aSrcMatch : matches[matchIdx].bSrcMatch;
+  const prevStage = STAGES.find(s=>s.id===stageId).prevStage;
+  const prev = picks[prevStage] || {};
+  const t1 = prev[2*srcMatchIdx];
+  const t2 = prev[2*srcMatchIdx+1];
+  return [t1, t2].filter(Boolean);
+}
+
+function renderStages(){
+  const cont = document.getElementById("stagesContainer");
+  cont.innerHTML = "";
+  STAGES.forEach((stage,idx)=>{
+    const div = document.createElement("div");
+    div.className = "stage card" + (idx===0?" open":"");
+    div.id = `stage-${stage.id}`;
+    div.innerHTML = `
+      <div class="stage-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>${stage.name} <span style="opacity:.7;font-size:12px">(${stage.slots===1?'1 בחירה':stage.slots+' בחירות'})</span></span>
+        <span><span class="pts">${stage.full} / ${stage.half||0} נק'</span> <span class="arrow">▼</span></span>
+      </div>
+      <div class="stage-body" id="body-${stage.id}"></div>`;
+    cont.appendChild(div);
+    renderStageBody(stage);
+  });
+  parseEmojis();
+}
+
+function renderStageBody(stage){
+  const body = document.getElementById("body-"+stage.id);
+  if(!body) return;
+
+  if(stage.id==="R32"){
+    body.innerHTML = R32_MATCHES.map((m,i)=>{
+      const eligA = getEligibleTeams(m.a);
+      const eligB = getEligibleTeams(m.b);
+      const labelA = m.a.type==="3" ? `🥉 שלישית מבתים ${m.a.pool.join("/")}` : (m.a.type==="1"?`🥇 מנצחת ${m.a.g}`:`🥈 שנייה ${m.a.g}`);
+      const labelB = m.b.type==="3" ? `🥉 שלישית מבתים ${m.b.pool.join("/")}` : (m.b.type==="1"?`🥇 מנצחת ${m.b.g}`:`🥈 שנייה ${m.b.g}`);
+      const displayId = m.id.replace('M','W');
+      return `
+        <div class="match">
+          <div class="match-title">${displayId} • ${labelA} מול ${labelB}</div>
+          <div class="match-row">
+            <select data-stage="R32" data-slot="${i*2}" onchange="onPick(this)">
+              <option value="">בחר/י נבחרת…</option>
+              ${eligA.map(t=>`<option value="${t}">${t}</option>`).join("")}
+            </select>
+            <span class="vs">VS</span>
+            <select data-stage="R32" data-slot="${i*2+1}" onchange="onPick(this)">
+              <option value="">בחר/י נבחרת…</option>
+              ${eligB.map(t=>`<option value="${t}">${t}</option>`).join("")}
+            </select>
+          </div>
+        </div>`;
+    }).join("");
+    return;
+  }
+
+  if(stage.id==="W"){
+    const eligible = getEligibleForSlot("W", 0);
+    if(eligible.length<2){
+      body.innerHTML = `<div class="alert alert-locked">🔒 מלא/י קודם את שלב הגמר כדי לבחור את הזוכה</div>`;
+      return;
+    }
+    body.innerHTML = `
+      <div class="champion-box">
+        <div class="crown">🏆</div>
+        <div style="font-weight:700;color:#92400e">הזוכה הסופי - אלוף העולם 2026</div>
+        <select data-stage="W" data-slot="0" onchange="onPick(this)">
+          <option value="">בחר/י את האלופה…</option>
+          ${eligible.map(t=>`<option value="${t}">${t}</option>`).join("")}
+        </select>
+      </div>`;
+    return;
+  }
+
+  const matches = STAGE_MATCHES[stage.id];
+  const prevStart = stage.prevStart;
+  let html = `<div class="alert alert-info" style="font-size:12px">הסינון מבוסס על הזיווגים הרשמיים של פיפ"א ועל הניחושים שלך מהשלב הקודם</div>`;
+
+  matches.forEach((m, k)=>{
+    const slotA = k*2, slotB = k*2+1;
+    const eligA = getEligibleForSlot(stage.id, slotA);
+    const eligB = getEligibleForSlot(stage.id, slotB);
+    const srcA = `W${prevStart + m.aSrcMatch}`;
+    const srcB = `W${prevStart + m.bSrcMatch}`;
+    const displayId = m.id.replace('M','W');
+
+    html += `
+      <div class="match">
+        <div class="match-title">${displayId} • ${srcA} מול ${srcB}</div>
+        <div class="match-row">
+          <select data-stage="${stage.id}" data-slot="${slotA}" onchange="onPick(this)" ${eligA.length===0?'disabled':''}>
+            <option value="">${eligA.length===0?'🔒 מלא/י שלב קודם':'בחר/י את ' + srcA + '…'}</option>
+            ${eligA.map(t=>`<option value="${t}">${t}</option>`).join("")}
+          </select>
+          <span class="vs">VS</span>
+          <select data-stage="${stage.id}" data-slot="${slotB}" onchange="onPick(this)" ${eligB.length===0?'disabled':''}>
+            <option value="">${eligB.length===0?'🔒 מלא/י שלב קודם':'בחר/י את ' + srcB + '…'}</option>
+            ${eligB.map(t=>`<option value="${t}">${t}</option>`).join("")}
+          </select>
+        </div>
+      </div>`;
+  });
+  body.innerHTML = html;
+}
+
+function onPick(sel){
+  const stage = sel.dataset.stage;
+  const slot = +sel.dataset.slot;
+  if(!picks[stage]) picks[stage] = {};
+  if(sel.value) picks[stage][slot] = sel.value;
+  else delete picks[stage][slot];
+
+  cascadeValidation(stage);
+
+  const currentIdx = STAGES.findIndex(s=>s.id===stage);
+  for(let i=currentIdx+1; i<STAGES.length; i++){
+    renderStageBody(STAGES[i]);
+    applyPicksForStage(STAGES[i].id);
+  }
+  parseEmojis();
+
+  validateDuplicates(stage);
+  updateProgress();
+  saveLocal(true);
+}
+
+function cascadeValidation(changedStage){
+  const idx = STAGES.findIndex(s=>s.id===changedStage);
+  for(let i=idx+1; i<STAGES.length; i++){
+    const stage = STAGES[i];
+    const stagePicks = picks[stage.id]||{};
+    for(let slotIdx=0; slotIdx<stage.slots; slotIdx++){
+      const current = stagePicks[slotIdx];
+      if(!current) continue;
+      const eligible = getEligibleForSlot(stage.id, slotIdx);
+      if(!eligible.includes(current)){
+        delete stagePicks[slotIdx];
+      }
+    }
+    if(Object.keys(stagePicks).length===0) delete picks[stage.id];
+    else picks[stage.id] = stagePicks;
+  }
+}
+
+function validateDuplicates(stage){
+  const selects = document.querySelectorAll(`select[data-stage="${stage}"]`);
+  const counts = {};
+  selects.forEach(s=>{ if(s.value){ counts[s.value]=(counts[s.value]||0)+1; }});
+  selects.forEach(s=>{
+    if(s.value && counts[s.value]>1){ s.style.borderColor="#e74c3c"; s.style.background="#fef0ef"; }
+    else { s.style.borderColor=""; s.style.background=""; }
+  });
+}
+
+function updateProgress(){
+  let total=0, filled=0;
+  STAGES.forEach(s=>{ total+=s.slots; filled += Object.keys(picks[s.id]||{}).length; });
+  document.getElementById("progressText").textContent = `${filled} / ${total} בחירות`;
+  document.getElementById("progressFill").style.width = (filled/total*100).toFixed(1)+"%";
+}
+
+function applyPicksForStage(stageId){
+  const stagePicks = picks[stageId]||{};
+  Object.entries(stagePicks).forEach(([slot,team])=>{
+    const sel = document.querySelector(`select[data-stage="${stageId}"][data-slot="${slot}"]`);
+    if(sel){
+      const opt = Array.from(sel.options).find(o=>o.value===team);
+      if(opt) sel.value = team;
+      else delete picks[stageId][slot];
+    }
+  });
+  validateDuplicates(stageId);
+}
+
+function applyPicksToUI(){
+  STAGES.forEach(s=>{
+    renderStageBody(s);
+    applyPicksForStage(s.id);
+  });
+  parseEmojis();
+}
+
+function saveLocal(silent){
+  const data = { name: document.getElementById("userName").value, picks };
+  localStorage.setItem("mundial2026_predictions", JSON.stringify(data));
+  if(!silent) alert("✅ נשמר!");
+}
+function loadLocal(){
+  try {
+    const d = JSON.parse(localStorage.getItem("mundial2026_predictions")||"{}");
+    if(d.name) document.getElementById("userName").value = d.name;
+    if(d.picks){ picks = d.picks; applyPicksToUI(); }
+    const r = JSON.parse(localStorage.getItem("mundial2026_results")||"{}");
+    if(r.picks) actualResults = r.picks;
+    const i = JSON.parse(localStorage.getItem("mundial2026_imported")||"[]");
+    imported = i;
+  } catch(e){ console.error(e); }
+}
+
+function resetPredictions(){
+  if(!confirm("⚠️ למחוק את כל החיזויים שלך?")) return;
+  picks = {};
+  localStorage.removeItem("mundial2026_predictions");
+  renderStages();
+  updateProgress();
+}
+
+function exportPredictions(){
+  const name = document.getElementById("userName").value.trim();
+  if(!name){ alert("נא להזין שם תחילה"); return; }
+  const data = { name, picks, exported: new Date().toISOString(), version:"3.0" };
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+  downloadBlob(blob, `predictions_${name}.json`);
+}
+
+function setupImports(){
+  document.getElementById("importFiles").onchange = async (e)=>{
+    const files = Array.from(e.target.files);
+    for(const f of files){
+      try {
+        const txt = await f.text();
+        const d = JSON.parse(txt);
+        if(d.name && d.picks){
+          imported = imported.filter(x=>x.name!==d.name);
+          imported.push({name:d.name, picks:d.picks});
+        }
+      } catch(err){ alert("שגיאה בקריאת "+f.name); }
+    }
+    localStorage.setItem("mundial2026_imported", JSON.stringify(imported));
+    renderLeaderboard();
+    e.target.value = "";
+  };
+  document.getElementById("importResultsFile").onchange = async (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    try {
+      const d = JSON.parse(await f.text());
+      if(d.picks){ actualResults = d.picks; localStorage.setItem("mundial2026_results", JSON.stringify(d)); renderLeaderboard(); alert("✅ תוצאות יובאו"); }
+    } catch(err){ alert("שגיאה"); }
+    e.target.value="";
+  };
+}
+
+function exportResults(){
+  const data = { name:"OFFICIAL_RESULTS", picks: actualResults, exported:new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  downloadBlob(blob, "mundial2026_results.json");
+}
+
+function downloadBlob(blob, fileName){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = fileName;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+async function shareWhatsApp(type){
+  let data, fileName, title, text;
+  if(type==="predictions"){
+    const name = document.getElementById("userName").value.trim();
+    if(!name){ alert("נא להזין שם תחילה"); return; }
+    let total=0, filled=0;
+    STAGES.forEach(s=>{ total+=s.slots; filled += Object.keys(picks[s.id]||{}).length; });
+    data = { name, picks, exported:new Date().toISOString(), version:"3.0" };
+    fileName = `predictions_${name}.json`;
+    title = `חיזוי מונדיאל 2026 - ${name}`;
+    text = `🏆 חיזוי המונדיאל 2026 שלי - ${name}\nמספר בחירות: ${filled}/${total}\n(הקובץ מצורף)`;
+  } else {
+    const dateStr = new Date().toLocaleDateString("he-IL");
+    data = { name:"OFFICIAL_RESULTS", picks: actualResults, exported:new Date().toISOString() };
+    fileName = "mundial2026_results.json";
+    title = "תוצאות רשמיות מונדיאל 2026";
+    text = `🎯 תוצאות רשמיות מונדיאל 2026 - עדכון ${dateStr}\n(הקובץ מצורף)`;
+  }
+
+  const jsonStr = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonStr], {type:"application/json"});
+  const file = new File([blob], fileName, {type:"application/json"});
+
+  try {
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({ files:[file], title, text });
+      return;
+    }
+  } catch(err){
+    if(err.name==="AbortError") return;
+    console.warn("File share failed:", err);
+  }
+
+  try {
+    if(navigator.share){
+      downloadBlob(blob, fileName);
+      await navigator.share({ title, text: text + "\n\n📎 הקובץ הורד למכשיר - נא לצרף אותו להודעה." });
+      return;
+    }
+  } catch(err){
+    if(err.name==="AbortError") return;
+  }
+
+  downloadBlob(blob, fileName);
+  const waText = encodeURIComponent(text + "\n\n📎 הקובץ ירד למחשב - נא לצרף אותו להודעה בוואטסאפ.");
+  window.open(`https://wa.me/?text=${waText}`, "_blank");
+}
+
+function openResultsEditor(){
+  const modal = document.createElement("div");
+  modal.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;overflow:auto;padding:20px;";
+  modal.innerHTML = `<div style="background:#fff;max-width:760px;margin:0 auto;border-radius:12px;padding:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <h3 style="margin:0;color:#0a2540">✏️ עריכת תוצאות בפועל</h3>
+      <button class="btn btn-secondary" onclick="this.closest('.modal-wrap').remove()">✖ סגירה</button>
+    </div>
+    <div class="alert alert-warn">בחר/י את הנבחרות שעלו בפועל בכל שלב</div>
+    <div id="resultsEditor"></div>
+    <button class="btn btn-gold btn-block" onclick="saveResultsFromEditor(this)">💾 שמירת תוצאות</button>
+  </div>`;
+  modal.className="modal-wrap";
+  document.body.appendChild(modal);
+  const ed = modal.querySelector("#resultsEditor");
+  STAGES.forEach(stage=>{
+    const stagePicks = actualResults[stage.id]||{};
+    let html = `<div class="stage open card"><div class="stage-header"><span>${stage.name}</span></div><div class="stage-body">`;
+    for(let i=0;i<stage.slots;i++){
+      const eligibles = (stage.id==="R32") ? getEligibleTeamsForR32Slot(i) : ALL_TEAMS;
+      html += `<div class="match"><div class="match-title">משבצת ${i+1}</div>
+        <select data-rstage="${stage.id}" data-rslot="${i}" style="width:100%;padding:9px;border:1px solid #cbd2dc;border-radius:8px;background:#fff;font-size:14px;font-family:inherit">
+          <option value="">—</option>
+          ${eligibles.map(t=>`<option value="${t}" ${stagePicks[i]===t?"selected":""}>${t}</option>`).join("")}
+        </select></div>`;
+    }
+    html += `</div></div>`;
+    ed.innerHTML += html;
+  });
+  parseEmojis();
+}
+
+function getEligibleTeamsForR32Slot(slotIdx){
+  const matchIdx = Math.floor(slotIdx/2);
+  const side = slotIdx%2===0 ? "a":"b";
+  return getEligibleTeams(R32_MATCHES[matchIdx][side]);
+}
+
+function saveResultsFromEditor(btn){
+  const modal = btn.closest(".modal-wrap");
+  const newResults = {};
+  modal.querySelectorAll("select[data-rstage]").forEach(s=>{
+    if(s.value){
+      if(!newResults[s.dataset.rstage]) newResults[s.dataset.rstage] = {};
+      newResults[s.dataset.rstage][s.dataset.rslot] = s.value;
+    }
+  });
+  actualResults = newResults;
+  localStorage.setItem("mundial2026_results", JSON.stringify({picks:actualResults}));
+  modal.remove();
+  renderLeaderboard();
+  alert("✅ תוצאות נשמרו");
+}
+
+function calcScore(userPicks){
+  let totalByStage = {};
+  let total = 0;
+  STAGES.forEach(stage=>{
+    let s = 0;
+    const up = userPicks[stage.id]||{};
+    const ap = actualResults[stage.id]||{};
+    const actualTeams = new Set(Object.values(ap));
+    for(let i=0;i<stage.slots;i++){
+      const guess = up[i];
+      if(!guess) continue;
+      if(stage.id==="W"){
+        if(ap[0] && guess===ap[0]) s += stage.full;
+      } else {
+        if(ap[i] && guess===ap[i]) s += stage.full;
+        else if(actualTeams.has(guess)) s += stage.half;
+      }
+    }
+    totalByStage[stage.id] = s;
+    total += s;
+  });
+  return {total, byStage: totalByStage};
+}
+
+function renderLeaderboard(){
+  const cont = document.getElementById("leaderboard");
+  if(imported.length===0){
+    cont.innerHTML = `<div class="alert alert-info">אין עדיין חיזויים מיובאים. ייבא/י קבצי JSON מהמשתתפים.</div>`;
+    document.getElementById("importedList").innerHTML = "";
+    return;
+  }
+  document.getElementById("importedList").innerHTML = 
+    `<b>${imported.length} משתתפים נטענו:</b> ` + imported.map(x=>x.name).join(", ");
+  const results = imported.map(u=>{
+    const sc = calcScore(u.picks);
+    return {name:u.name, ...sc};
+  });
+  results.sort((a,b)=>b.total-a.total);
+  const max = results[0]?.total||0;
+  let html = `<table><thead><tr>
+    <th>שם</th><th>R32</th><th>R16</th><th>QF</th><th>SF</th><th>F</th><th>W</th><th>סה"כ</th>
+  </tr></thead><tbody>`;
+  results.forEach(r=>{
+    html += `<tr class="${r.total===max && max>0?'leader':''}">
+      <td>${r.name}</td>
+      <td>${r.byStage.R32||0}</td>
+      <td>${r.byStage.R16||0}</td>
+      <td>${r.byStage.QF||0}</td>
+      <td>${r.byStage.SF||0}</td>
+      <td>${r.byStage.F||0}</td>
+      <td>${r.byStage.W||0}</td>
+      <td><b>${r.total}</b></td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  cont.innerHTML = html;
+  parseEmojis();
+}
+
+init();
+</script>
+</body>
+</html>
